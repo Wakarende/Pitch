@@ -1,7 +1,7 @@
 from flask import render_template
 from . import main
 from .forms import PitchForm
-# from flask_login import login_required
+from flask_login import login_required
 
 @main.route('/')
 def index():
@@ -16,7 +16,7 @@ def index():
 
 
 @main.route('/pitches/new/', methods = ['GET','POST'])
-# @login_required
+@login_required
 def new_pitch():
   form = PitchForm()
   # my_upvotes = Upvote.query.filter_by(pitch_id = Pitch.id)
