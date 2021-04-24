@@ -1,0 +1,22 @@
+{% macro display(category_list) %}
+<div class="row">
+	{% if category_list %}
+		{% for category in category_list %}
+		<div class="col-md-6">
+			<div class="thumbnail text-center">
+			<h5 class="card-header">{{category.title}}</h5>
+			<h5 class="card-header">{{category.category}}</h5>
+			<div class="card-body">
+				<blockquote class="blockquote mb-0">
+					<h2>{{category.description}}</h2>
+					<footer class="blockquote-footer"> Posted by {{category.user.username}}</footer>
+				</blockquote>
+			</div>
+		</div>
+
+		</div>
+		{% endfor %}
+	{% else %}
+	{% endif %}
+</div>
+{% endmacro %}

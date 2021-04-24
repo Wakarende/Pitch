@@ -11,7 +11,7 @@
     <div class="col-md-3 text-left">
       <h3> {{user.username| capitalize}}'s Profile </h3>
       {% if user.profile_pic_path %}
-      <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt=""><br><br>
+      <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="width: 200px; height: 200px; border-radius: 100px;"><br><br>
       {%else%}
       <p><b>No profile picture</b></p>
       {% endif %}
@@ -35,3 +35,4 @@
       </form>
       {% endif %}
     </div>
+{%endblock%} 

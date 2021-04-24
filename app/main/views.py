@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import PitchForm,UpdateProfile
-from flask_login import login_required
-from ..models import User
-from .. import db
+from flask_login import login_required,current_user
+from ..models import User,Pitch
+from .. import db,photos
 
 @main.route('/')
 def index():
@@ -36,22 +36,33 @@ def new_pitch():
     return redirect(url_for('main.index'))
   return render_template('pitches.html',form=form)
 
+@main.route('/pitches/disp/', methods = ['GET','POST'])
+@login_required
+def pitch_disp():
+  title = 'Pitches Display'
+  pitch = Pitch.query.filter_by().first()
+  interviewpitch = Pitch.query.filter_by(category = "interviewpitch")
+  promotionpitch = Pitch.query.filter_by(category = "promotionpitch")
+  productpitch = Pitch.query.filter_by(category = "productpitch")
+
+  return render_template('pitches_disp.html', title = title, pitch = pitch, interviewpitch = interviewpitch, promotionpitch = promotionpitch, productpitch = productpitch)
+
 @main.route('/user/<uname>')
 @login_required
 def profile(uname):
-  categories = Category.query.all()
+  # categories = Category.query.all()
   user = User.query.filter_by(username = uname).first()
   title = current_user.username + " | Pitch"
   if user is None:
     abort(404)
-  pitches = Pitch.get_user_pitch(user.id)
-  return render_template("profile/profile.html", user = user, categories=categories, pitches=pitches, title=title)
+  # pitches = Pitch.get_user_pitch(user.id)
+  return render_template("profile/profile.html", user = user, title=title)
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
   user = User.query.filter_by(username = uname).first()
-  categories = Category.query.all()
+  # categories = Category.query.all()
   if user is None:
     abort(404)
     
@@ -66,3 +77,14 @@ def update_profile(uname):
     return redirect(url_for('.profile',uname=user.username))
 
   return render_template('profile/update.html',form =form)
+
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+  user = User.query.filter_by(username = uname).first()
+  if 'photo' in request.files:
+    filename = photos.save(request.files['photo'])
+    path = f'photos/{filename}'
+    user.profile_pic_path = path
+    db.session.commit()
+  return redirect(url_for('main.profile',uname=uname))

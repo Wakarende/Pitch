@@ -3,6 +3,8 @@ from wtforms import StringField,PasswordField,SubmitField,RadioField,TextAreaFie
 from wtforms.validators import Required,Email,EqualTo
 from wtforms import ValidationError
 
+# from ..models import User
+
 
 class PitchForm(FlaskForm):
 	title = StringField('Title', validators=[Required()])
