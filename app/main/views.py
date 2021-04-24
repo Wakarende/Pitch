@@ -36,7 +36,7 @@ def new_pitch():
     return redirect(url_for('main.index'))
   return render_template('pitches.html',form=form)
 
-@main.route('/pitches/disp/', methods = ['GET','POST'])
+@main.route('/pitches/', methods = ['GET','POST'])
 @login_required
 def pitch_disp():
   title = 'Pitches Display'

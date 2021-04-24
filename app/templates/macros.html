@@ -3,17 +3,17 @@
 	{% if category_list %}
 		{% for category in category_list %}
 		<div class="col-md-6">
-			<div class="thumbnail text-center">
-			<h5 class="card-header">{{category.title}}</h5>
-			<h5 class="card-header">{{category.category}}</h5>
+			<div class="thumbnail text-center" style="width: 30rem; height:auto; border: 2px,solid, #F5245F;">
+			<h5 class="card-header" style="font-size: 16px; font-weight: bold;">Product:{{category.title}}</h5>
+			<h5 class="card-header" style="color: #F5245F;"><em>Category:{{category.category}}</em></h5>
 			<div class="card-body">
+        <hr>
 				<blockquote class="blockquote mb-0">
-					<h2>{{category.description}}</h2>
-					<footer class="blockquote-footer"> Posted by {{category.user.username}}</footer>
+					<p>{{category.description}}</p>
+					<footer class="blockquote-footer"> Posted by:{{category.user.username}}</footer>
 				</blockquote>
 			</div>
 		</div>
-
 		</div>
 		{% endfor %}
 	{% else %}
