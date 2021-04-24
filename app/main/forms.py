@@ -9,3 +9,7 @@ class PitchForm(FlaskForm):
 	description = TextAreaField("What would you like to pitch ?",validators=[Required()])
 	category = RadioField('Label', choices=[ ('promotionpitch','promotionpitch'), ('interviewpitch','interviewpitch'),('pickuplines','pickuplines'),('productpitch','productpitch')],validators=[Required()])
 	submit = SubmitField('Submit')
+
+class UpdateProfile(FlaskForm):
+  bio = TextAreaField('Tell us about you.',validators = [Required()])
+  submit = SubmitField('Submit')

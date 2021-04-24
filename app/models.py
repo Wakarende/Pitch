@@ -1,6 +1,6 @@
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from . import login_manager
 
 @login_manager.user_loader
@@ -15,6 +15,7 @@ class User(UserMixin,db.Model):
   email = db.Column(db.String(255),unique = True,index = True)
   pass_secure = db.Column(db.String(255))
   pitch = db.relationship('Pitch', backref='user', lazy='dynamic')
+  profile_pic_path = db.Column(db.String())
   # role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
   def __repr__(self):
     return f'User {self.username}'
