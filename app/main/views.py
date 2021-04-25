@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import PitchForm,UpdateProfile
 from flask_login import login_required,current_user
-from ..models import User,Pitch
+from ..models import User,Pitch,Comment,Upvote,Downvote
 from .. import db,photos
 
 @main.route('/')
@@ -33,7 +33,7 @@ def new_pitch():
     db.session.commit()
         
         
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.pitches'))
   return render_template('pitches.html',form=form)
 
 @main.route('/pitches/', methods = ['GET','POST'])
