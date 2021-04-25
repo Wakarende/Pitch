@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import PitchForm,UpdateProfile,CommentForm
 from flask_login import login_required,current_user
-from ..models import User,Pitch,Comment,Upvote
+from ..models import User,Pitch,Comment,Upvote,Downvote
 from .. import db,photos
 
 @main.route('/')
@@ -91,6 +91,23 @@ def profile(uname):
     abort(404)
   # pitches = Pitch.get_user_pitch(user.id)
   return render_template("profile/profile.html", user = user, title=title)
+
+@main.route('/dislike/<int:id>',methods = ['POST','GET'])
+@login_required
+def dislike(id):
+  pitch = Downvote.get_downvotes(id)
+  valid_string = f'{current_user.id}:{id}'
+  for p in pitch:
+    to_str = f'{p}'
+    print(valid_string+" "+to_str)
+    if valid_string == to_str:
+      return redirect(url_for('main.pitch_disp',id=id))
+    else:
+      continue
+  new_downvote = Downvote(user = current_user, pitch_id=id)
+  new_downvote.save()
+  return redirect(url_for('main.pitch_disp',id = id))
+
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required

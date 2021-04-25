@@ -13,7 +13,8 @@
 					<footer class="blockquote-footer"> Posted by:{{category.user.username}}</footer>
 				</blockquote>
 				<a href="{{url_for('main.new_comment',pitch_id = category.id)}}" class="btn btn-info"> Add a comment</a>
-				<span class="foot" > <a href="{{url_for('main.like',id = category.id)}}"><i class="bi bi-hand-thumbs-up-fill"></i></a> {{category.upvote.count()}}</span>
+				<span class="foot" ></span> <a href="{{url_for('main.like',id = category.id)}}"><i class="bi bi-hand-thumbs-up-fill">{{category.upvote.count()}}</i></a> </span>
+				<span class="foot" ></span> <a href="{{url_for('main.dislike',id = category.id)}}"><i class="bi bi-hand-thumbs-down-fill">{{category.downvote.count()}}</i></a></span>
 			</div>
 		</div>
 		</div>
