@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
 from .forms import PitchForm,UpdateProfile,CommentForm
 from flask_login import login_required,current_user
@@ -33,7 +33,7 @@ def new_pitch():
     db.session.commit()
         
         
-    return redirect(url_for('main.pitches'))
+    return redirect(url_for('main.index'))
   return render_template('pitches.html',form=form)
 
 @main.route('/pitches/', methods = ['GET','POST'])
@@ -65,21 +65,23 @@ def new_comment(pitch_id):
   all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
   return render_template('comment.html', form = form, comment = all_comments, pitch = pitch )
 
-@main.route('/like/<int:id>',methods = ['POST','GET'])
+@main.route('/like/<int:id>', methods=['POST', 'GET'])
 @login_required
-def like(id):
-  get_pitches = Upvote.get_upvotes(id)
-  valid_string = f'{current_user.id}:{id}'
-  for pitch in get_pitches:
-    to_str = f'{pitch}'
-    print(valid_string+" "+to_str)
-    if valid_string == to_str:
-      return redirect(url_for('main.pitch_disp',id=id))
-    else:
-      continue
-  new_vote = Upvote(user = current_user, pitch_id=id)
+def upvote(id):
+  pitch = Pitch.query.get(id)
+  new_vote = Upvote(pitch=pitch, upvote=1)
   new_vote.save()
-  return redirect(url_for('main.pitch_disp',id=id))
+  return redirect(url_for('main.pitch_disp'))
+
+
+@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+@login_required
+def downvote(id):
+  pitch = Pitch.query.get(id)
+  nm = Downvote(pitch=pitch, downvote=1)
+  nm.save()
+  return redirect(url_for('main.pitch_disp'))
+
 
 @main.route('/user/<uname>')
 @login_required
@@ -92,21 +94,6 @@ def profile(uname):
   # pitches = Pitch.get_user_pitch(user.id)
   return render_template("profile/profile.html", user = user, title=title)
 
-@main.route('/dislike/<int:id>',methods = ['POST','GET'])
-@login_required
-def dislike(id):
-  pitch = Downvote.get_downvotes(id)
-  valid_string = f'{current_user.id}:{id}'
-  for p in pitch:
-    to_str = f'{p}'
-    print(valid_string+" "+to_str)
-    if valid_string == to_str:
-      return redirect(url_for('main.pitch_disp',id=id))
-    else:
-      continue
-  new_downvote = Downvote(user = current_user, pitch_id=id)
-  new_downvote.save()
-  return redirect(url_for('main.pitch_disp',id = id))
 
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
