@@ -12,19 +12,19 @@
 
   {% block content %}
     <div class="container">
-      <h3 style="color: green;text-align: center">Pitch Categories</h3>
+      <h3 style="color:#191414;text-align: center">Pitch Categories</h3>
       <br>
-      <ul class="nav nav-pills nav-justified nav-fill" role="tablist">
+      <ul class="nav nav-pills nav-justified nav-fill" role="tablist" style="background:white;">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#product">Product</a>
+          <a class="nav-link active" data-toggle="tab" href="#product" style="color:#F5245F;">Product</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#promotion">Promotion</a>
+          <a class="nav-link" data-toggle="tab" href="#promotion" style="color:#F5245F;">Promotion</a>
         </li>
       </ul>
 
       <div class="tab-content">
-        <div id="product" class="container tab-pane active"><br>
+        <div id="product" class="container tab-pane active" ><br>
           {{ macro.display(productpitch) }} 
         </div>
         <div id="promotion" class="container tab-pane fade"><br>

@@ -55,7 +55,7 @@ def new_comment(pitch_id):
   if form.validate_on_submit():
     description = form.description.data
 
-    new_comment = Comment(description = description, user_id = current_user._get_current_object().id, pitch_id = pitch_id)
+    new_comment = Comment( description = description, user_id = current_user._get_current_object().id, pitch_id = pitch_id)
     db.session.add(new_comment)
     db.session.commit()
 
@@ -67,21 +67,35 @@ def new_comment(pitch_id):
 
 @main.route('/like/<int:id>', methods=['POST', 'GET'])
 @login_required
-def upvote(id):
-  pitch = Pitch.query.get(id)
-  new_vote = Upvote(pitch=pitch, upvote=1)
-  new_vote.save()
-  return redirect(url_for('main.pitch_disp'))
+def like(id):
+    get_pitches = Upvote.get_by_pitch(id)
+    valid_string = f'{current_user.id}:{id}'
+    for pitch in get_pitches:
+        to_str = f'{pitch}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.pitch_disp', id=id))
+        else:
+            continue
+    new_vote = Upvote(user_id=current_user._get_current_object().id, pitch_id=id)
+    new_vote.save_upvotes()
+    return redirect(url_for('main.index', id=id))
 
-
-@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+@main.route('/dislike/<int:id>', methods=['POST', 'GET'])
 @login_required
-def downvote(id):
-  pitch = Pitch.query.get(id)
-  nm = Downvote(pitch=pitch, downvote=1)
-  nm.save()
-  return redirect(url_for('main.pitch_disp'))
-
+def dislike(id):
+    get_pitch = Downvote.get_by_pitch(id)
+    valid_string = f'{current_user.id}:{id}'
+    for pitch in get_pitch:
+        to_str = f'{pitch}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.pitch_disp', id=id))
+        else:
+            continue
+    new_downvote = Downvote(user_id=current_user._get_current_object().id, pitch_id=id)
+    new_downvote.save_downvotes()
+    return redirect(url_for('main.pitch_disp', id=id))
 
 @main.route('/user/<uname>')
 @login_required

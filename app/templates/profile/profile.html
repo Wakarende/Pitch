@@ -12,7 +12,7 @@
       
     </div>
     <div class="col-md-3 text-left">
-      <h3> {{user.username| capitalize}}'s Profile </h3>
+      <h2 style="margin-bottom: 40px;"> {{user.username| capitalize}}'s Profile </h2>
       {% if user.profile_pic_path %}
       <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="width: 200px; height: 200px; border-radius: 100px;"><br><br>
       {%else%}
@@ -39,9 +39,9 @@
       {% endif %}
     </div>
     <div class="col-md-4 pitches">
-      <h3>YOUR PITCHES</h3>
+      <h2 class="text-center">Your Pitches</h2>
     {% if current_user%}
-      <p>{{user.pitch.count()}} pitches created</p>
+      <p class="text-center" style="font-size: 14px; margin-top: 40px;">{{user.pitch.count()}} pitches created</p>
       {% for category in pitch %}
         <div class="card ">
           <div class="mx-auto card-body">
