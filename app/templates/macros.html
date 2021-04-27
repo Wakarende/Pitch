@@ -29,19 +29,21 @@
 
 
 {% macro displayComment(comments) %} 
-	<ul>
+<div class="container">
+		<div class="row" >
 			{% if comments %}
 			{% for comment in comments %}
-				<div class="row text-center">
-					<div class="col-md-12" style="margin-bottom: 40px;">
+					<div class="col mb-5" style=" display: flex; flex-direction:row; flex-wrap: wrap; justify-content: center; align-content: center;">
+						<div class="card" style="padding: 10px;">
 						<p class="text-center" style="font-size: 20px;">{{ comment.description }}</p>
-						<p class="text-center"> posted by {{comment.user.username}}</p>
-					</div>	
-				</div>
+						<p class="text-center">Posted by: <em style="color:#F5245F;">{{comment.user.username}}</em> </p>
+					</div>
+						</div>
+						
 			{% endfor %}
 			{% else %}
-
 			<h3>This post does  not does not have any comments yet !</h3>
 			{%endif%}
-	</ul>
+		</div>
+</div>
 {% endmacro %}
