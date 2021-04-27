@@ -5,13 +5,10 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}" type="text/css">
 {% endblock styles%} -->
 {% block content %}
-<div class="container-fluid">
-  <div class="row">
+<div class="container">
+  <div class="row" style="display: flex; flex-wrap: wrap;  column-gap: 10px;">
     <!-- displaying  Username-->
-    <div class="col-md-2">
-      
-    </div>
-    <div class="col-md-3 text-left">
+    <div class="col">
       <h2 style="margin-bottom: 40px;"> {{user.username| capitalize}}'s Profile </h2>
       {% if user.profile_pic_path %}
       <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" style="width: 200px; height: 200px; border-radius: 100px;"><br><br>
@@ -38,18 +35,20 @@
       </form>
       {% endif %}
     </div>
-    <div class="col-md-4 pitches">
-      <h2 class="text-center">Your Pitches</h2>
-    {% if current_user%}
-      <p class="text-center" style="font-size: 14px; margin-top: 40px;">{{user.pitch.count()}} pitches created</p>
-      {% for category in pitch %}
-        <div class="card ">
+    <div class=" col pitches"> 
+    {% if user == current_user%}
+    <h2 class="text-center">Your Pitches</h2>
+     <div class="card-flex" style="display: flex; align-items: center; align-content: center; justify-content: center;">
+       <div class="card  mt-5" style="height: 20rem; width: 30rem;">
+           <h3 class="text-center mt-5" >{{user.username}}'s statistics</h3>
           <div class="mx-auto card-body">
-            <h3 class="card-title">Pitch Title:{{category.title}}</h3>
-            <p class="card-text">Pitch Category:{{category.category.current_user}}</p>
+            <p class="text-center" style="font-size: 14px; margin-top: 40px;">Added Pitches:{{user.pitch.count()}} </p>
+            <h3 class="card-title">Added Comments:{{user.comment.count()}}</h3>
           </div>
+     </div>
+       
         </div>
-      {% endfor %}
+    
     {%endif%}
     </div>
   </div>

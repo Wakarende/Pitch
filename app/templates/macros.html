@@ -13,7 +13,7 @@
 					<footer class="blockquote-footer"> Posted by:{{category.user.username}}</footer>
 				</blockquote>	
 				<button class="btn btn-outline-dark" style="border: 1px solid #191414; background: none;"><a href="{{url_for('main.new_comment',pitch_id = category.id)}}" style="text-decoration: none; color:#F5245F ;"> Add a comment</a></button>
-				<span ><a href="{{url_for('main.dislike',id=category.id)}}"  style="border-radius: 100px; color: green; font-size: 18px;"><i class="bi bi-hand-thumbs-up"></i>{{category.upvote.count()}}</a>
+				<span ><a href="{{url_for('main.dislike',id=category.id)}}"  style="color: green; font-size: 18px;"><i class="bi bi-hand-thumbs-up"></i>{{category.upvote.count()}}</a>
 				</span>
         <span>
 					<a href="{{url_for('main.dislike',id=category.id)}}" style="color: red; font-size: 18px;"><i class="bi bi-hand-thumbs-down"></i>{{category.downvote.count()}}</a>
@@ -28,7 +28,7 @@
 {% endmacro %}
 
 
-{% macro displayComment(comments) %}
+{% macro displayComment(comments) %} 
 	<ul>
 			{% if comments %}
 			{% for comment in comments %}
