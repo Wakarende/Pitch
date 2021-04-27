@@ -2,10 +2,10 @@
 <div class="row">
 	{% if category_list %}
 		{% for category in category_list %}
-		<div class="col-md-12">
-			<div class="thumbnail text-center card" style="height:auto
-			; padding: 10px;">
-			<h4 class="card-header">{{category.title}}</h4>
+		<div class="col" style="display: flex; flex-direction:row; flex-wrap: wrap; justify-content: center; align-items: center; ">
+			<div class="text-center thumbnail" style="height:auto
+			; width: 30rem; padding: 10px;">
+			<h4 class="card-title">{{category.title}}</h4>
 			<div class="card-body">
 				<h5 style="color:#F5245F;"><em>{{category.category}}</em></h5>
 				<blockquote class="blockquote mb-0">
@@ -34,7 +34,7 @@
 			{% if comments %}
 			{% for comment in comments %}
 					<div class="col mb-5" style=" display: flex; flex-direction:row; flex-wrap: wrap; justify-content: center; align-content: center;">
-						<div class="card" style="padding: 10px;">
+						<div class="card shadow bg-white rounded" style="padding: 10px;">
 						<p class="text-center" style="font-size: 20px;">{{ comment.description }}</p>
 						<p class="text-center">Posted by: <em style="color:#F5245F;">{{comment.user.username}}</em> </p>
 					</div>
