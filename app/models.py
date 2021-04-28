@@ -21,7 +21,7 @@ class User(UserMixin,db.Model):
   upvote = db.relationship('Upvote', backref = 'user', lazy = 'dynamic')
   downvote = db.relationship('Downvote', backref = '', lazy = 'dynamic')
 
-  # role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+
   def __repr__(self):
     return f'User {self.username}'
 
