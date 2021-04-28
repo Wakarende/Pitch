@@ -51,7 +51,6 @@ class Pitch(db.Model):
   upvote = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
   downvote = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
 
-    
   @classmethod
   def get_pitches(cls, id):
     pitches = Pitch.query.order_by(pitch_id=id).desc().all()

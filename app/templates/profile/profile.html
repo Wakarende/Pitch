@@ -39,11 +39,11 @@
     {% if user == current_user%}
     <h2 class="text-center">Your Pitches</h2>
      <div class="card-flex" style="display: flex; align-items: center; align-content: center; justify-content: center;">
-       <div class="card  mt-5" style="height: 20rem; width: 30rem;">
-           <h3 class="text-center mt-5" >{{user.username}}'s statistics</h3>
+       <div class="card  mt-5 shadow bg-white rounded" style="height: 20rem; width: 30rem;">
+           <h3 class="text-center mt-5" style="color:#F5245F;" >{{user.username}}'s statistics</h3>
           <div class="mx-auto card-body">
             <p class="text-center" style="font-size: 14px; margin-top: 40px;">Added Pitches:{{user.pitch.count()}} </p>
-            <h3 class="card-title">Added Comments:{{user.comment.count()}}</h3>
+            <P class="card-title" style="font-size: 14px;">Added Comments:{{user.comment.count()}}</P>
           </div>
      </div>
        
